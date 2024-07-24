@@ -6,7 +6,9 @@ export default async function Home() {
     const id = "e9000a91-991e-44a4-93d8-564e0e93fed3";
     try {
       console.log({ api: `${process.env.NEXT_API_URL}/api/user/${id}` });
-      const response = await fetch(`/api/user/${id}?${Date.now}`);
+      const response = await fetch(
+        `${process.env.NEXT_API_URL}/api/user/${id}?${Date.now}`
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
