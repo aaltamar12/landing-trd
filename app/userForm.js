@@ -25,6 +25,7 @@ export default function UserForm(userData) {
     <div>
       <h1>Data</h1>
       <pre>{userString}</pre>
+      <pre>{`${process.env.NEXT_API_URL}/api/user/e9000a91-991e-44a4-93d8-564e0e93fed3`}</pre>
     </div>
   );
 }
