@@ -22,5 +22,6 @@ export default async function Home() {
 
   const user = await fetchUser();
 
-  return <UserForm userData={user} />;
+  // return <UserForm userData={user} />;
+  return <FormUser userData={user} />;
 }
