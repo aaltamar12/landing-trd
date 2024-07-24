@@ -54,6 +54,7 @@ export default function UserDetails({ userData }) {
   useEffect(() => {
     const getLocationAndWeather = async () => {
       try {
+        if (location.latitude === null) return;
         const response = await fetch(
           `https://api.open-meteo.com/v1/forecast?latitude=${
             location.latitude
@@ -61,8 +62,8 @@ export default function UserDetails({ userData }) {
         );
 
         if (!response.ok) {
-          setWeather("Error");
-          throw new Error("Error fetching weather data");
+          setWeather("Err");
+          return;
         }
 
         const { current_weather, current_weather_units } =
