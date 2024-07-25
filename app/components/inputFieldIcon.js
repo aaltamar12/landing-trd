@@ -47,7 +47,7 @@ export default function InputFieldIcon({ label, type, placeholder, onChange }) {
                   <div
                     key={`div-country-${country.cca2}`}
                     onClick={() => handleCountryClick(country.cca2)}
-                    className="w-full h-8 py-5 cursor-pointer flex items-center justify-start gap-2 text-sm"
+                    className="w-full h-8 py-5 cursor-pointer flex items-center justify-start gap-2 text-xs md:text-sm"
                   >
                     <Image
                       key={country.cca2}
@@ -68,12 +68,14 @@ export default function InputFieldIcon({ label, type, placeholder, onChange }) {
       </div>
 
       <div className="w-full ml-[60px] h-16 pl-3 pt-3 pb-3.5 rounded-[11px] bg-[#272a33] border border-[#272a33] flex-col justify-center items-start gap-1 inline-flex">
-        <div className="text-[#9396a5] text-sm font-normal">{label}</div>
+        <div className="text-[#9396a5] text-xs md:text-sm font-normal">
+          {label}
+        </div>
         <input
           type={type || "text"}
           value={value}
           onChange={handleInput}
-          className="w-full bg-transparent text-white text-base font-normal outline-none"
+          className="w-full bg-transparent text-white text-sm md:text-base font-normal outline-none"
           pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
           inputMode="tel"
           placeholder={placeholder || ""}

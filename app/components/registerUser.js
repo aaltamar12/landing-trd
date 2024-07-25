@@ -41,7 +41,7 @@ export default function RegisterUser() {
   }
 
   return (
-    <div className="flex flex-col text-center h-full 4k:h-screen bg-[#111317] text-[#CCCCCC]">
+    <div className="flex flex-col text-center h-full 4k:h-screen w-full bg-[#111317] text-[#CCCCCC]">
       <div className="flex flex-col items-center">
         <div className="flex justify-center pt-[50px] pb-[71px]">
           <Image
@@ -63,7 +63,7 @@ export default function RegisterUser() {
               />
 
               <div className="h-[116px] px-4 py-6 bg-[#181a1f] rounded-2xl flex-col justify-start items-start gap-6 inline-flex">
-                <div className="text-center text-[#9396a5] text-xl font-normal font-['SF Pro Display']">
+                <div className="text-center text-[#9396a5] text-base md:text-xl font-normal font-['SF Pro Display']">
                   Datos de facturación
                 </div>
                 <div className="justify-center items-center gap-[9px] inline-flex">
@@ -74,7 +74,13 @@ export default function RegisterUser() {
                       }}
                     />
                   </div>
-                  <div className="text-white text-sm font-semibold font-['SF Pro Display']">
+                  <div
+                    className={`text-white text-xs md:text-sm ${
+                      userData.useAsBillingInfo
+                        ? "font-semibold"
+                        : "font-normal"
+                    }`}
+                  >
                     Usar los mismos datos para la facturación
                   </div>
                 </div>

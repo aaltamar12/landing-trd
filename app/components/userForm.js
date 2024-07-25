@@ -17,7 +17,7 @@ export default function UserForm({ label, onChange }) {
   return (
     <div className="rounded-2xl bg-[#181A1F] w-full">
       <div className="flex flex-col py-6 px-4 text-left text-xl gap-6">
-        <h1 className="text-[#9396A5] text-xl">{label}</h1>
+        <h1 className="text-[#9396A5] text-base md:text-xl">{label}</h1>
 
         <InputField
           label={"Nombre"}
