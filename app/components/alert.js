@@ -11,7 +11,7 @@ export default function Alert({ message = "", isLoading, isVisible, onClose }) {
       setVisible(true);
       timer = setTimeout(() => {
         onClose();
-      }, 1500);
+      }, 1600);
     } else {
       setVisible(false);
     }
@@ -23,17 +23,19 @@ export default function Alert({ message = "", isLoading, isVisible, onClose }) {
     <div
       className={`fixed top-[-8px] left-1/2 transform -translate-x-1/2 transition-transform duration-500 ease-in-out ${
         visible ? "translate-y-12" : "-translate-y-full"
-      } w-[510px] h-[35px] px-4 py-2 bg-[#27ae60] rounded-lg flex justify-between items-center`}
+      } w-[80%] md:w-[510px] h-[35px] px-4 py-2 bg-[#27ae60] rounded-lg flex justify-between items-center`}
     >
-      <div className="text-center text-white text-base font-normal font-['SF Pro Display']">
+      <div className="text-center text-white text-sm md:text-base font-normal">
         {message}
       </div>
-      <div className="w-4 h-4 p-[1.33px] flex justify-center items-center">
+      <div className="w-4 h-4 flex justify-center items-center">
         <Image
           src="/check_circle.svg"
           alt="check circle"
-          width={13}
-          height={13}
+          width={16}
+          height={16}
+          className="w-[20px] h-[20px] md:w-[17px] md:h-[17px]"
+          objectFit=""
         />
       </div>
     </div>
