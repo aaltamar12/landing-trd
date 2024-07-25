@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { COUNTRIES, sortCountriesByName } from "../constants/countries";
+import { sortCountriesByName } from "../constants/countries";
 
 export default function InputFieldIcon({ label, type, placeholder, onChange }) {
   const [value, setValue] = useState("");
@@ -17,18 +17,19 @@ export default function InputFieldIcon({ label, type, placeholder, onChange }) {
       validatedValue = e.target.value;
     }
     setValue(validatedValue);
-    onChange(validatedValue);
+    onChange(validatedValue, "phone");
   };
 
   const handleCountryClick = (cca2) => {
     setCountry(cca2);
+    onChange(cca2, "country_code");
     setShowDropdown(false);
   };
 
   return (
     <div className="flex items-center w-full">
       <div className="absolute flex rounded-[11px] h-14">
-        <div className="absolute bg-[#272A33] flex items-center justify-center rounded-[11px] w-[54px] h-14">
+        <div className="absolute bg-[#272A33] flex items-center justify-center rounded-[11px] w-[54px] h-14 hover:cursor-pointer">
           <Image
             src={`https://flagpedia.net/data/flags/h80/${country}.png`}
             alt="country icon"

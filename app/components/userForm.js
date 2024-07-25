@@ -63,9 +63,7 @@ export default function UserForm({ label, onChange }) {
           label={"Número de teléfono"}
           type={"tel"}
           placeholder={"Número de teléfono"}
-          onChange={(value) => {
-            onChange(value, "phone");
-          }}
+          onChange={onChange}
         />
 
         <FileBrowser />
