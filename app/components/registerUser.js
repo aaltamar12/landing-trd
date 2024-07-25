@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-import FormField from "./formField";
-import FormFieldIcon from "./formFieldIcon";
 import UserForm from "./userForm";
 import Checkbox from "./checkbox";
 import Loading from "./loading";
 
 export default function RegisterUser() {
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
 
   const [userData, setUserData] = useState({
@@ -22,13 +22,14 @@ export default function RegisterUser() {
     useAsBillingInfo: "",
   });
 
+  const handleSubmit = () => {
+    console.log({ userData });
+    router.push("/user/e9000a91-991e-44a4-93d8-564e0e93fed3");
+  };
+
   const handleOnChange = (value, name) => {
     setUserData({ ...userData, [name]: value });
   };
-
-  useEffect(() => {
-    console.log({ userData });
-  }, [userData]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -74,13 +75,7 @@ export default function RegisterUser() {
                       }}
                     />
                   </div>
-                  <div
-                    className={`text-white text-xs md:text-sm ${
-                      userData.useAsBillingInfo
-                        ? "font-semibold"
-                        : "font-normal"
-                    }`}
-                  >
+                  <div className="text-white text-xs md:text-sm font-semibold">
                     Usar los mismos datos para la facturación
                   </div>
                 </div>
@@ -88,9 +83,7 @@ export default function RegisterUser() {
 
               <button
                 className="h-14 w-full px-5 py-2.5 bg-[#fcb115] rounded-xl text-center text-[#111217]"
-                onClick={() => {
-                  console.log("CLIC");
-                }}
+                onClick={handleSubmit}
               >
                 Enviar
               </button>

@@ -24,7 +24,7 @@ export default function DropdownField({
       <select
         value={value}
         onChange={handleDropdown}
-        className="w-full bg-transparent text-[#9396A5] text-sm md:text-base font-normal outline-none border border-[#272a33] rounded-lg"
+        className="w-full bg-transparent text-[#9396A5] text-sm md:text-base font-normal outline-none border border-[#272a33] rounded-lg hover:cursor-pointer"
       >
         <option value="" disabled>
           Selecciona una opción
