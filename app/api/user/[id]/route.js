@@ -1,7 +1,4 @@
-import {
-  createRouteHandlerClient,
-  createServerComponentClient,
-} from "@supabase/auth-helpers-nextjs";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 export async function GET(req, { params }) {
@@ -12,18 +9,6 @@ export async function GET(req, { params }) {
 
   return new Response(JSON.stringify(data[0]), {
     status: 200,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-}
-
-export async function POST(req, { params }) {
-  const { id } = params;
-  const body = await req.json();
-
-  return new Response(JSON.stringify({ id, ...body }), {
-    status: 201,
     headers: {
       "Content-Type": "application/json",
     },

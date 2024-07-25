@@ -11,7 +11,8 @@ import Alert from "./alert";
 export default function RegisterUser() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [alertVisible, setAlertVisible] = useState(true);
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const [userData, setUserData] = useState({
     name: "",
@@ -24,16 +25,41 @@ export default function RegisterUser() {
     useAsBillingInfo: "",
   });
 
-  const handleSubmit = () => {
-    console.log({ userData });
-    router.push("/user/e9000a91-991e-44a4-93d8-564e0e93fed3");
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+
+      const response = await fetch("/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        showAlert("Error al crear el usuario");
+        return;
+      }
+
+      const data = await response.json();
+
+      console.log({ data });
+      router.push(`/user/${data.id}`);
+    } catch (error) {
+      showAlert(error);
+      console.error("Error al guardar:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleOnChange = (value, name) => {
     setUserData({ ...userData, [name]: value });
   };
 
-  const showAlert = () => {
+  const showAlert = (message) => {
+    setAlertMessage(message);
     setAlertVisible(true);
   };
 
@@ -54,7 +80,7 @@ export default function RegisterUser() {
   return (
     <div className="flex flex-col items-center text-center h-full 4k:h-screen w-full bg-[#111317] text-[#CCCCCC]">
       <Alert
-        message="¡Perfil creado exitosamente!"
+        message={alertMessage || ""}
         isLoading={loading}
         isVisible={alertVisible}
         onClose={handleCloseAlert}

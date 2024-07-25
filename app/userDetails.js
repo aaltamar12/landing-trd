@@ -4,13 +4,19 @@ import Loading from "./components/loading";
 import Image from "next/image";
 import Gallery from "./components/gallery";
 import UserDetailsForm from "./components/userDetailsForm";
+import Alert from "./components/alert";
 
 export default function UserDetails({ userData }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [alertVisible, setAlertVisible] = useState(true);
   const [location, setLocation] = useState({ latitude: null, longitude: null });
   const [weather, setWeather] = useState("0");
   const [error, setError] = useState(null);
+
+  const handleCloseAlert = () => {
+    setAlertVisible(false);
+  };
 
   useEffect(() => {
     const getLocationAndWeather = async () => {
@@ -91,6 +97,12 @@ export default function UserDetails({ userData }) {
 
   return (
     <div className="flex flex-col text-center h-full 4k:h-screen bg-[#111317] text-[#CCCCCC] pb-[171px]">
+      <Alert
+        message="¡Perfil creado exitosamente!"
+        isLoading={loading}
+        isVisible={alertVisible}
+        onClose={handleCloseAlert}
+      />
       <div className="flex flex-col items-center">
         <div className="flex justify-center pt-[50px] pb-[61px]">
           <Image
