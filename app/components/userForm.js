@@ -1,34 +1,74 @@
 "use client";
 
-import FormField from "./formField";
-import FormFieldIcon from "./formFieldIcon";
+import InputField from "./inputField";
+import InputFieldIcon from "./inputFieldIcon";
+import FileBrowser from "./fileBrowser";
+import DropdownField from "./dropdownField";
+import CREDENTIAL_TYPES from "../constants/credentialTypes";
 
-export default function UserForm({ images, label, userData }) {
-  const credential_types = {
-    0: "Cédula de identidad",
-    1: "Pasaporte",
-    2: "Cédula de Extranjería",
-    3: "RUC",
-  };
+export default function UserForm({ label, onChange }) {
+  const dropdownOptions = Object.entries(CREDENTIAL_TYPES).map(
+    ([value, label]) => ({
+      value,
+      label,
+    })
+  );
 
   return (
-    <div className="rounded-2xl bg-[#181A1F] w-full h-[602px]">
-      <div className="flex flex-col pt-6 pb-6 pl-4 pr-4 text-left text-xl gap-6">
+    <div className="rounded-2xl bg-[#181A1F] w-full">
+      <div className="flex flex-col py-6 px-4 text-left text-xl gap-6">
         <h1 className="text-[#9396A5] text-xl">{label}</h1>
 
-        <FormField label={"Nombre"} value={userData.name} />
-        <FormField label={"Apellido"} value={userData.last_name} />
-        <FormField
+        <InputField
+          label={"Nombre"}
+          placeholder={"Nombre"}
+          onChange={(value) => {
+            onChange(value, "name");
+          }}
+        />
+
+        <InputField
+          label={"Apellido"}
+          placeholder={"Apellido"}
+          onChange={(value) => {
+            onChange(value, "last_name");
+          }}
+        />
+
+        <DropdownField
           label={"Tipo de documento"}
-          value={credential_types[userData.credential_type]}
+          options={dropdownOptions}
+          onChange={(value) => {
+            onChange(value, "credential_type");
+          }}
         />
-        <FormField label={"Número de documento"} value={userData.credential} />
-        <FormField label={"Correo electrónico"} value={userData.email} />
-        <FormFieldIcon
+
+        <InputField
+          label={"Número de documento"}
+          placeholder={"Número de documento"}
+          onChange={(value) => {
+            onChange(value, "credential");
+          }}
+        />
+
+        <InputField
+          label={"Correo electrónico"}
+          placeholder={"Correo electrónico"}
+          onChange={(value) => {
+            onChange(value, "email");
+          }}
+        />
+
+        <InputFieldIcon
           label={"Número de teléfono"}
-          value={userData.phone}
-          country={userData.country_code}
+          type={"tel"}
+          placeholder={"Número de teléfono"}
+          onChange={(value) => {
+            onChange(value, "phone");
+          }}
         />
+
+        <FileBrowser />
       </div>
     </div>
   );

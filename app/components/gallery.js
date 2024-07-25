@@ -57,7 +57,7 @@ export default function Gallery({ images }) {
         />
       </div>
       <div className="h-[35px] bg-[#4b4b4b]/40 rounded-3xl flex items-center">
-        <div className="flex justify-between pt-[5.5px] pb-[5.5px] pl-2 pr-2">
+        <div className="flex justify-between py-[5.5px] px-2">
           {isMultipleImages && (
             <Image
               key="previous_arrow"

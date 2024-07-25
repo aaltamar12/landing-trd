@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Loading from "./components/loading";
 import Image from "next/image";
 import Gallery from "./components/gallery";
-import UserForm from "./components/userForm";
+import UserDetailsForm from "./components/userDetailsForm";
 
 export default function UserDetails({ userData }) {
   const [user, setUser] = useState(null);
@@ -102,7 +102,7 @@ export default function UserDetails({ userData }) {
           />
         </div>
 
-        <div className="flex flex-col gap-8 pl-6 pr-6 md:pl-20 md:pr-20">
+        <div className="flex flex-col gap-8 px-6 md:px-20">
           <div className="flex justify-between items-center text-left text-xl md:text-[27px]">
             <h1>Hola {`${user.name} ${user.last_name}`}</h1>
 
@@ -121,12 +121,12 @@ export default function UserDetails({ userData }) {
             <Gallery images={JSON.parse(user.images)} />
 
             <div className="flex flex-col gap-5 w-full">
-              <UserForm
+              <UserDetailsForm
                 key={"information"}
                 label={"Información personal"}
                 userData={user}
               />
-              <UserForm
+              <UserDetailsForm
                 key={"billing"}
                 label={"Datos de facturación"}
                 userData={{

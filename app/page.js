@@ -1,6 +1,5 @@
 "use server";
-import FormUser from "./components/formUser";
-import UserForm from "./userForm";
+import RegisterUser from "./components/registerUser";
 
 export default async function Home() {
   const fetchUser = async () => {
@@ -22,6 +21,5 @@ export default async function Home() {
 
   const user = await fetchUser();
 
-  // return <UserForm userData={user} />;
-  return <FormUser userData={user} />;
+  return <RegisterUser userData={user} />;
 }
