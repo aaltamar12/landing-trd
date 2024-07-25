@@ -6,10 +6,12 @@ import Image from "next/image";
 import UserForm from "./userForm";
 import Checkbox from "./checkbox";
 import Loading from "./loading";
+import Alert from "./alert";
 
 export default function RegisterUser() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [alertVisible, setAlertVisible] = useState(true);
 
   const [userData, setUserData] = useState({
     name: "",
@@ -31,6 +33,14 @@ export default function RegisterUser() {
     setUserData({ ...userData, [name]: value });
   };
 
+  const showAlert = () => {
+    setAlertVisible(true);
+  };
+
+  const handleCloseAlert = () => {
+    setAlertVisible(false);
+  };
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -42,7 +52,13 @@ export default function RegisterUser() {
   }
 
   return (
-    <div className="flex flex-col text-center h-full 4k:h-screen w-full bg-[#111317] text-[#CCCCCC]">
+    <div className="flex flex-col items-center text-center h-full 4k:h-screen w-full bg-[#111317] text-[#CCCCCC]">
+      <Alert
+        message="¡Perfil creado exitosamente!"
+        isLoading={loading}
+        isVisible={alertVisible}
+        onClose={handleCloseAlert}
+      />
       <div className="flex flex-col items-center">
         <div className="flex justify-center pt-[50px] pb-[71px]">
           <Image
