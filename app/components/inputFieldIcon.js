@@ -45,10 +45,12 @@ export default function InputFieldIcon({ label, type, placeholder, onChange }) {
               {sortCountriesByName().map((country) => {
                 return (
                   <div
+                    key={`div-country-${country.cca2}`}
                     onClick={() => handleCountryClick(country.cca2)}
                     className="w-full h-8 py-5 cursor-pointer flex items-center justify-start gap-2 text-sm"
                   >
                     <Image
+                      key={country.cca2}
                       src={`https://flagpedia.net/data/flags/h80/${country.cca2}.png`}
                       alt={country.name}
                       width={32}
