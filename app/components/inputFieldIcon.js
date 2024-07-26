@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { sortCountriesByName } from "../constants/countries";
 
 export default function InputFieldIcon({ label, type, placeholder, onChange }) {
@@ -22,9 +22,12 @@ export default function InputFieldIcon({ label, type, placeholder, onChange }) {
 
   const handleCountryClick = (cca2) => {
     setCountry(cca2);
-    onChange(cca2, "country_code");
     setShowDropdown(false);
   };
+
+  useEffect(() => {
+    onChange(country, "country_code");
+  }, [country]);
 
   return (
     <div className="flex items-center w-full">

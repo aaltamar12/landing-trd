@@ -5,8 +5,10 @@ import Image from "next/image";
 import Gallery from "./components/gallery";
 import UserDetailsForm from "./components/userDetailsForm";
 import Alert from "./components/alert";
+import { useRouter } from "next/navigation";
 
 export default function UserDetails({ userData }) {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [alertVisible, setAlertVisible] = useState(true);
@@ -93,6 +95,10 @@ export default function UserDetails({ userData }) {
 
   if (loading) {
     return <Loading />;
+  }
+
+  if (!userData) {
+    return router.push("/404");
   }
 
   return (

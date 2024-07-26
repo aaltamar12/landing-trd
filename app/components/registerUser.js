@@ -7,12 +7,14 @@ import UserForm from "./userForm";
 import Checkbox from "./checkbox";
 import Loading from "./loading";
 import Alert from "./alert";
+import AlertError from "./alertError";
 
 export default function RegisterUser() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [errorAlert, setErrorAlert] = useState(false);
 
   const [userData, setUserData] = useState({
     name: "",
@@ -25,8 +27,31 @@ export default function RegisterUser() {
     useAsBillingInfo: "",
   });
 
-  const handleSubmit = async () => {
+  const validateForm = () => {
+    const requiredAttributes = [
+      "name",
+      "last_name",
+      "credential_type",
+      "credential",
+      "email",
+      "country_code",
+    ];
+
+    const validation = requiredAttributes.every((attr) => {
+      const field = userData[attr];
+      return field !== null && field !== undefined && field.trim() !== "";
+    });
+
+    return validation;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
+      if (!validateForm()) {
+        showAlert("Por favor llene los campos obligatorios", "error");
+        return;
+      }
       setLoading(true);
 
       const response = await fetch("/api/user", {
@@ -38,19 +63,17 @@ export default function RegisterUser() {
       });
 
       if (!response.ok) {
-        showAlert("Error al crear el usuario");
+        showAlert("Error al crear el usuario", "error");
         return;
       }
 
-      const data = await response.json();
+      const { data, status } = await response.json();
 
-      console.log({ data });
-      router.push(`/user/${data.id}`);
+      const redirectUrl = status === 201 ? `/user/${data.id}` : "/404";
+      router.push(redirectUrl);
     } catch (error) {
-      showAlert(error);
+      showAlert(error, "error");
       console.error("Error al guardar:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -58,7 +81,9 @@ export default function RegisterUser() {
     setUserData({ ...userData, [name]: value });
   };
 
-  const showAlert = (message) => {
+  const showAlert = (message, type) => {
+    const typeAlert = type === "error";
+    setErrorAlert(typeAlert);
     setAlertMessage(message);
     setAlertVisible(true);
   };
@@ -79,12 +104,22 @@ export default function RegisterUser() {
 
   return (
     <div className="flex flex-col items-center text-center h-full 4k:h-screen w-full bg-[#111317] text-[#CCCCCC]">
-      <Alert
-        message={alertMessage || ""}
-        isLoading={loading}
-        isVisible={alertVisible}
-        onClose={handleCloseAlert}
-      />
+      {!errorAlert ? (
+        <Alert
+          message={alertMessage || ""}
+          isLoading={loading}
+          isVisible={alertVisible}
+          onClose={handleCloseAlert}
+        />
+      ) : (
+        <AlertError
+          message={alertMessage}
+          isLoading={loading}
+          isVisible={alertVisible}
+          onClose={handleCloseAlert}
+        />
+      )}
+
       <div className="flex flex-col items-center">
         <div className="flex justify-center pt-[50px] pb-[71px]">
           <Image
@@ -124,8 +159,9 @@ export default function RegisterUser() {
               </div>
 
               <button
+                type="button"
                 className="h-14 w-full px-5 py-2.5 bg-[#fcb115] rounded-xl text-center text-[#111217]"
-                onClick={handleSubmit}
+                onClick={(e) => handleSubmit(e)}
               >
                 Enviar
               </button>

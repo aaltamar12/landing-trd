@@ -1,9 +1,9 @@
 "use server";
 import UserDetails from "@/app/userDetails";
 
-export default async function Home() {
+export default async function Home({ params }) {
+  const { id } = params;
   const fetchUser = async () => {
-    const id = "e9000a91-991e-44a4-93d8-564e0e93fed3";
     try {
       const response = await fetch(
         `${process.env.NEXT_API_URL}/api/user/${id}/?${Date.now()}`

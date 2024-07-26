@@ -4,14 +4,15 @@ import { useEffect, useState } from "react";
 
 export default function Gallery({ images }) {
   const [indexImage, setIndexImage] = useState(0);
-  const [urlImage, setUrlImage] = useState(images[0] || "");
+  const [urlImage, setUrlImage] = useState((images && images[0]) || "");
 
-  const isMultipleImages = images.length === 1 ? false : true;
+  const isMultipleImages = images && images.length === 1 ? false : true;
 
   const buttonsClass =
     "w-6 h-6 pl-2 pr-2.5 pt-1.5 pb-2 justify-center items-center flex hover:cursor-pointer";
 
   const imageHandler = (action) => {
+    if (!images) return;
     if (indexImage === 0 && action === "back") return;
 
     if (action === "next") {
@@ -23,25 +24,28 @@ export default function Gallery({ images }) {
 
   const renderDots = () => {
     let dots = [];
-    for (let index = 0; index < images.length - 1; index++) {
-      dots.push(
-        <Image
-          key={"dot" + index}
-          src="/dot.svg"
-          alt="arrow left"
-          width={11}
-          height={11}
-          objectFit="cover"
-          className="w-6 h-6 pl-2 pr-2.5 pt-1.5 pb-2 justify-center items-center flex hover:cursor-pointer"
-        />
-      );
+
+    if (images) {
+      for (let index = 0; index < images.length - 1; index++) {
+        dots.push(
+          <Image
+            key={"dot" + index}
+            src="/dot.svg"
+            alt="arrow left"
+            width={11}
+            height={11}
+            objectFit="cover"
+            className="w-6 h-6 pl-2 pr-2.5 pt-1.5 pb-2 justify-center items-center flex hover:cursor-pointer"
+          />
+        );
+      }
     }
 
     return dots;
   };
 
   useEffect(() => {
-    setUrlImage(images[indexImage]);
+    images && setUrlImage(images[indexImage]);
   }, [indexImage]);
 
   return (
