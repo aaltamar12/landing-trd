@@ -59,7 +59,7 @@ export default function RegisterUser() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ filename: file.name, contentType: file.type }),
+          body: JSON.stringify({ contentType: file.type }),
         });
 
         if (signature.ok) {
@@ -83,7 +83,6 @@ export default function RegisterUser() {
 
           filesUrl.push(fileUrl);
         } else {
-          alert("Failed to get pre-signed URL for file: " + file.name);
           showAlert("Error al subir los archivos", "error");
           return;
         }
