@@ -33,7 +33,7 @@ export default function FileBrowser({ setLoadedFiles }) {
   }, [porcentajeCarga]);
 
   useEffect(() => {
-    setLoadedFiles(files);
+    setLoadedFiles && setLoadedFiles(files);
   }, [files]);
 
   return (
