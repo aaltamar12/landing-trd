@@ -23,8 +23,9 @@ export default function RegisterUser() {
     credential: "",
     email: "",
     phone: "",
-    country_code: "",
+    country_code: "us",
     useAsBillingInfo: "",
+    files: [],
   });
 
   const validateForm = () => {
@@ -34,15 +35,66 @@ export default function RegisterUser() {
       "credential_type",
       "credential",
       "email",
-      "country_code",
     ];
 
     const validation = requiredAttributes.every((attr) => {
       const field = userData[attr];
-      return field !== null && field !== undefined && field.trim() !== "";
+      const validate =
+        field !== null && field !== undefined && field.trim() !== "";
+      return validate;
     });
 
     return validation;
+  };
+
+  const handleUploadFiles = async () => {
+    const { files } = userData;
+    if (files.length === 0) return;
+
+    try {
+      let filesUrl = [];
+      for (const file of files) {
+        const signature = await fetch("/api/upload", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ filename: file.name, contentType: file.type }),
+        });
+
+        if (signature.ok) {
+          const { url, fields } = await signature.json();
+          const fileUrl = `${url}${fields.key}`;
+
+          const formData = new FormData();
+          Object.entries(fields).forEach(([key, value]) => {
+            formData.append(key, value);
+          });
+          formData.append("file", file);
+
+          const uploadResponse = await fetch(url, {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!uploadResponse.ok) {
+            console.error("S3 Upload Error:", uploadResponse);
+          }
+
+          filesUrl.push(fileUrl);
+        } else {
+          alert("Failed to get pre-signed URL for file: " + file.name);
+          showAlert("Error al subir los archivos", "error");
+          return;
+        }
+      }
+
+      return filesUrl;
+    } catch (error) {
+      console.error("Error uploading files:", error);
+      showAlert("Error al subir los archivos", "error");
+      return { error };
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -54,12 +106,22 @@ export default function RegisterUser() {
       }
       setLoading(true);
 
+      const urlFiles = await handleUploadFiles();
+
+      if (urlFiles.error) {
+        return showAlert("Error al subir imagenes", "error");
+      }
+
+      const body = urlFiles?.error
+        ? userData
+        : { ...userData, images: urlFiles };
+
       const response = await fetch("/api/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(body),
       });
 
       if (!response.ok) {

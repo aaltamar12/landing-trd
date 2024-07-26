@@ -10,6 +10,7 @@ export async function POST(req) {
     country_code,
     credential_type,
     credential,
+    images,
     useAsBillingInfo,
   } = await req.json();
 
@@ -34,6 +35,7 @@ export async function POST(req) {
     country_code,
     credential_type,
     credential,
+    images,
     ...billingData,
   };
 

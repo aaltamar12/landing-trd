@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { sortCountriesByName } from "../constants/countries";
 
 export default function InputFieldIcon({ label, type, placeholder, onChange }) {
+  const DEFAULT_COUNTRY = "us";
   const [value, setValue] = useState("");
-  const [country, setCountry] = useState("us");
+  const [country, setCountry] = useState(DEFAULT_COUNTRY);
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleInput = (e) => {

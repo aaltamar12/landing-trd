@@ -19,11 +19,38 @@ export default function FileBrowser({ setLoadedFiles }) {
     const newFiles = [...files, ...selected];
     e.target.value = "";
     setFiles(newFiles);
+    simulateUpload(newFiles);
   };
 
   const handleRemoveFile = (fileName) => {
     const newFiles = files.filter((file) => file.name !== fileName);
     setFiles(newFiles);
+  };
+
+  const simulateUpload = (files) => {
+    if (files.length === 0) return;
+
+    setCargando(true);
+    setPorcentajeCarga(0);
+
+    let progress = 0;
+    const totalFiles = files.length;
+    const baseTimeInMs = 50;
+    const timeExecution = baseTimeInMs * totalFiles;
+
+    const interval = setInterval(() => {
+      if (progress >= 100) {
+        clearInterval(interval);
+        setCargando(false);
+        setPorcentajeCarga(0);
+        return;
+      }
+
+      progress += Math.random() * 10;
+      progress = Math.min(progress, 100);
+
+      setPorcentajeCarga(progress);
+    }, timeExecution);
   };
 
   useEffect(() => {
@@ -69,7 +96,7 @@ export default function FileBrowser({ setLoadedFiles }) {
             <div className="self-stretch text-white text-sm md:text-base font-medium">
               Haz clic o arrastra los archivos a esta área para cargarlo
             </div>
-            <div className="self-stretch text-[#9396a5] text-xs font-normal font-['Helvetica Neue']">
+            <div className="self-stretch text-[#9396a5] text-xs font-normal">
               JPG, PNG, Tiff, hasta 2 mb
             </div>
           </div>

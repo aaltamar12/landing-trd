@@ -66,7 +66,11 @@ export default function UserForm({ label, onChange }) {
           onChange={onChange}
         />
 
-        <FileBrowser />
+        <FileBrowser
+          setLoadedFiles={(value) => {
+            onChange(value, "files");
+          }}
+        />
       </div>
     </div>
   );
