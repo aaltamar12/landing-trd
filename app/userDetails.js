@@ -138,7 +138,7 @@ export default function UserDetails({ userData }) {
           <div className="flex flex-col md:flex-row gap-10 4k:gap-20">
             <Gallery images={JSON.parse(user.images)} />
 
-            <div className="flex flex-col gap-5 w-full">
+            <div className="flex flex-col gap-5 w-full 2xl:w-[620px] 4k:w-[920px]">
               <UserDetailsForm
                 key={"information"}
                 label={"Información personal"}

@@ -26,11 +26,11 @@ export default function Gallery({ images }) {
     let dots = [];
 
     if (images) {
-      for (let index = 0; index < images.length - 1; index++) {
+      for (let index = 0; index < images.length; index++) {
         dots.push(
           <Image
             key={"dot" + index}
-            src="/dot.svg"
+            src={index === indexImage ? "/dot_filled.svg" : "/dot.svg"}
             alt="arrow left"
             width={11}
             height={11}
@@ -49,15 +49,14 @@ export default function Gallery({ images }) {
   }, [indexImage]);
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      <div>
+    <div className="flex flex-col items-center 2xl:w-[620px] 4k:w-[920px] gap-4">
+      <div className="w-full">
         <Image
           src={urlImage || "/sample_image.png"}
           alt="user image"
           width={620}
           height={504}
-          objectFit="contain"
-          className="w-full h-auto rounded-[20px]"
+          className="w-full h-auto 2xl:h-[504px] 4k:h-[748px] object-cover rounded-[20px]"
         />
       </div>
       <div className="h-[35px] bg-[#4b4b4b]/40 rounded-3xl flex items-center">
@@ -74,16 +73,6 @@ export default function Gallery({ images }) {
               onClick={() => imageHandler("back")}
             />
           )}
-
-          <Image
-            key="dot00"
-            src="/dot_filled.svg"
-            alt="arrow left"
-            width={11}
-            height={11}
-            objectFit="cover"
-            className={buttonsClass}
-          />
 
           {!isMultipleImages ? null : renderDots()}
 
