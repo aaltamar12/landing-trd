@@ -3,6 +3,7 @@ import UserDetails from "@/app/userDetails";
 
 export default async function Home({ params }) {
   const { id } = params;
+
   const fetchUser = async () => {
     try {
       const response = await fetch(

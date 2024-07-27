@@ -5,13 +5,15 @@ import Image from "next/image";
 import Gallery from "./components/gallery";
 import UserDetailsForm from "./components/userDetailsForm";
 import Alert from "./components/alert";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function UserDetails({ userData }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const saved = searchParams.get("saved") === "true";
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [alertVisible, setAlertVisible] = useState(true);
+  const [alertVisible, setAlertVisible] = useState(saved || false);
   const [location, setLocation] = useState({ latitude: null, longitude: null });
   const [weather, setWeather] = useState("0");
   const [error, setError] = useState(null);

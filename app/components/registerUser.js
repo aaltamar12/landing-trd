@@ -143,7 +143,8 @@ export default function RegisterUser() {
       const { data, status } = await response.json();
 
       setIsDataSent(true);
-      const redirectUrl = status === 201 ? `/user/${data.id}` : "/404";
+      const redirectUrl =
+        status === 201 ? `/user/${data.id}?saved=true` : "/404";
       router.push(redirectUrl);
     } catch (error) {
       showAlert("Error");
