@@ -9,8 +9,8 @@ export default function Alert({
   isVisible,
   onClose,
 }) {
-  const ERROR_COLOR = "dc2626";
-  const MESSAGE_COLOR = "27ae60";
+  const ERROR_COLOR = "bg-red-600";
+  const MESSAGE_COLOR = "bg-green-600";
   const [visible, setVisible] = useState(false);
   const isError = type === "error";
 
@@ -33,8 +33,8 @@ export default function Alert({
       className={`fixed top-[-16px] md:top-[-8px] left-1/2 transform -translate-x-1/2 transition-transform duration-500 ease-in-out ${
         visible ? "translate-y-14" : "-translate-y-full"
       } w-[80%] md:w-[510px] h-[35px] px-4 py-2 ${
-        isError ? `bg-[#${ERROR_COLOR}]` : `bg-[#${MESSAGE_COLOR}]`
-      }] rounded-lg flex justify-between items-center`}
+        isError ? ERROR_COLOR : MESSAGE_COLOR
+      } rounded-lg flex justify-between items-center`}
     >
       <div className="text-center text-white text-sm md:text-base font-normal">
         {message}
