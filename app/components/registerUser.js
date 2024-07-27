@@ -227,7 +227,7 @@ export default function RegisterUser() {
 
               <button
                 type="button"
-                className="h-14 w-full px-5 py-2.5 bg-[#fcb115] rounded-xl text-center text-[#111217]"
+                className="h-14 w-full px-5 py-2.5 bg-[#fcb115] hover:bg-[#E7A724] rounded-xl text-center font-bold text-[#111217]"
                 onClick={(e) => handleSubmit(e)}
               >
                 Enviar
