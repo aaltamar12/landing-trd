@@ -16,6 +16,7 @@ export default function Alert({
   const isError = type === "error";
 
   useEffect(() => {
+    console.log({ isError, type, color });
     const colorAlert = isError ? "dc2626" : "27ae60";
     setColor(colorAlert);
   }, [type]);
