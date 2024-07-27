@@ -6,7 +6,7 @@ export default function Gallery({ images }) {
   const [indexImage, setIndexImage] = useState(0);
   const [urlImage, setUrlImage] = useState((images && images[0]) || "");
 
-  const isMultipleImages = images && images.length === 1 ? false : true;
+  const isMultipleImages = images && images.length !== images.length + 1;
 
   const buttonsClass =
     "w-6 h-6 pl-2 pr-2.5 pt-1.5 pb-2 justify-center items-center flex hover:cursor-pointer";

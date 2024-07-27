@@ -12,14 +12,7 @@ export default function Alert({
   const ERROR_COLOR = "dc2626";
   const MESSAGE_COLOR = "27ae60";
   const [visible, setVisible] = useState(false);
-  const [color, setColor] = useState("27ae60");
   const isError = type === "error";
-
-  useEffect(() => {
-    console.log({ isError, type, color });
-    const colorAlert = isError ? "dc2626" : "27ae60";
-    setColor(colorAlert);
-  }, [type]);
 
   useEffect(() => {
     let timer;
@@ -39,7 +32,9 @@ export default function Alert({
     <div
       className={`fixed top-[-16px] md:top-[-8px] left-1/2 transform -translate-x-1/2 transition-transform duration-500 ease-in-out ${
         visible ? "translate-y-14" : "-translate-y-full"
-      } w-[80%] md:w-[510px] h-[35px] px-4 py-2 bg-[#${color}] rounded-lg flex justify-between items-center`}
+      } w-[80%] md:w-[510px] h-[35px] px-4 py-2 bg-[#${
+        isError ? ERROR_COLOR : MESSAGE_COLOR
+      }] rounded-lg flex justify-between items-center`}
     >
       <div className="text-center text-white text-sm md:text-base font-normal">
         {message}
