@@ -59,37 +59,39 @@ export default function Gallery({ images }) {
           className="w-full h-auto 2xl:h-[504px] 4k:h-[748px] object-cover rounded-[20px]"
         />
       </div>
-      <div className="h-[35px] bg-[#4b4b4b]/40 rounded-3xl flex items-center">
-        <div className="flex justify-between py-[5.5px] px-2">
-          {isMultipleImages && (
-            <Image
-              key="previous_arrow"
-              src="/arrow_left.svg"
-              alt="arrow left"
-              width={11}
-              height={11}
-              objectFit="cover"
-              className={buttonsClass}
-              onClick={() => imageHandler("back")}
-            />
-          )}
+      {images && (
+        <div className="h-[35px] bg-[#4b4b4b]/40 rounded-3xl flex items-center">
+          <div className="flex justify-between py-[5.5px] px-2">
+            {isMultipleImages && (
+              <Image
+                key="previous_arrow"
+                src="/arrow_left.svg"
+                alt="arrow left"
+                width={11}
+                height={11}
+                objectFit="cover"
+                className={buttonsClass}
+                onClick={() => imageHandler("back")}
+              />
+            )}
 
-          {!isMultipleImages ? null : renderDots()}
+            {!isMultipleImages ? null : renderDots()}
 
-          {isMultipleImages && (
-            <Image
-              key="next_arrow"
-              src="/arrow_right.svg"
-              alt="arrow right"
-              width={11}
-              height={11}
-              objectFit="cover"
-              className={buttonsClass}
-              onClick={() => imageHandler("next")}
-            />
-          )}
+            {isMultipleImages && (
+              <Image
+                key="next_arrow"
+                src="/arrow_right.svg"
+                alt="arrow right"
+                width={11}
+                height={11}
+                objectFit="cover"
+                className={buttonsClass}
+                onClick={() => imageHandler("next")}
+              />
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

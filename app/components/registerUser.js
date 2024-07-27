@@ -107,7 +107,7 @@ export default function RegisterUser() {
 
       const urlFiles = await handleUploadFiles();
 
-      if (urlFiles.error) {
+      if (urlFiles && urlFiles.error) {
         return showAlert("Error al subir imagenes", "error");
       }
 
@@ -134,8 +134,9 @@ export default function RegisterUser() {
       const redirectUrl = status === 201 ? `/user/${data.id}` : "/404";
       router.push(redirectUrl);
     } catch (error) {
-      showAlert(error, "error");
+      showAlert("Error");
       console.error("Error al guardar:", error);
+      return;
     }
   };
 
