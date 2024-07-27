@@ -1,5 +1,5 @@
 const CREDENTIAL_TYPES = {
-  0: "Cédula de identidad",
+  0: "Cédula",
   1: "Pasaporte",
   2: "Cédula de Extranjería",
   3: "RUC",

@@ -6,7 +6,7 @@ import FileBrowser from "./fileBrowser";
 import DropdownField from "./dropdownField";
 import CREDENTIAL_TYPES from "../constants/credentialTypes";
 
-export default function UserForm({ label, onChange }) {
+export default function UserForm({ label, setAlert, onChange }) {
   const dropdownOptions = Object.entries(CREDENTIAL_TYPES).map(
     ([value, label]) => ({
       value,
@@ -67,6 +67,7 @@ export default function UserForm({ label, onChange }) {
         />
 
         <FileBrowser
+          setAlert={setAlert}
           setLoadedFiles={(value) => {
             onChange(value, "files");
           }}

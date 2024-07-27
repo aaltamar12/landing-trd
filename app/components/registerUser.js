@@ -7,7 +7,6 @@ import UserForm from "./userForm";
 import Checkbox from "./checkbox";
 import Loading from "./loading";
 import Alert from "./alert";
-import AlertError from "./alertError";
 
 export default function RegisterUser() {
   const router = useRouter();
@@ -15,6 +14,7 @@ export default function RegisterUser() {
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [errorAlert, setErrorAlert] = useState(false);
+  const [alertComponent, setAlertComponent] = useState(false);
 
   const [userData, setUserData] = useState({
     name: "",
@@ -143,15 +143,30 @@ export default function RegisterUser() {
   };
 
   const showAlert = (message, type) => {
-    const typeAlert = type === "error";
-    setErrorAlert(typeAlert);
+    setErrorAlert(type);
     setAlertMessage(message);
     setAlertVisible(true);
+  };
+
+  const renderAlert = () => {
+    return (
+      <Alert
+        message={alertMessage}
+        type={errorAlert}
+        isLoading={loading}
+        isVisible={alertVisible}
+        onClose={handleCloseAlert}
+      />
+    );
   };
 
   const handleCloseAlert = () => {
     setAlertVisible(false);
   };
+
+  useEffect(() => {
+    setAlertComponent(renderAlert());
+  }, [alertVisible]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -165,21 +180,7 @@ export default function RegisterUser() {
 
   return (
     <div className="flex flex-col items-center text-center h-full 4k:h-screen w-full bg-[#111317] text-[#CCCCCC]">
-      {!errorAlert ? (
-        <Alert
-          message={alertMessage || ""}
-          isLoading={loading}
-          isVisible={alertVisible}
-          onClose={handleCloseAlert}
-        />
-      ) : (
-        <AlertError
-          message={alertMessage}
-          isLoading={loading}
-          isVisible={alertVisible}
-          onClose={handleCloseAlert}
-        />
-      )}
+      {alertComponent}
 
       <div className="flex flex-col items-center">
         <div className="flex justify-center pt-[50px] pb-[71px]">
@@ -198,6 +199,7 @@ export default function RegisterUser() {
               <UserForm
                 key={"information"}
                 label={"Información personal"}
+                setAlert={showAlert}
                 onChange={handleOnChange}
               />
 

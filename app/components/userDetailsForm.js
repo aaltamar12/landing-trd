@@ -4,7 +4,7 @@ import CREDENTIAL_TYPES from "../constants/credentialTypes";
 import FormField from "./formField";
 import FormFieldIcon from "./formFieldIcon";
 
-export default function UserDetailsForm({ images, label, userData }) {
+export default function UserDetailsForm({ label, userData }) {
   return (
     <div className="rounded-2xl bg-[#181A1F] w-full h-[602px]">
       <div className="flex flex-col py-6 px-4 text-left text-xl gap-6">
