@@ -38,14 +38,27 @@ export default function RegisterUser() {
       "email",
     ];
 
-    const validation = requiredAttributes.every((attr) => {
+    const requiredValidation = requiredAttributes.every((attr) => {
       const field = userData[attr];
       const validate =
         field !== null && field !== undefined && field.trim() !== "";
       return validate;
     });
 
-    return validation;
+    if (!requiredValidation) {
+      showAlert("Por favor llene los campos obligatorios", "error");
+      return requiredValidation;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = emailPattern.test(userData.email);
+
+    if (!isValidEmail) {
+      showAlert("Por favor ingesa un email valido", "error");
+      return isValidEmail;
+    }
+
+    return true;
   };
 
   const handleUploadFiles = async () => {
@@ -100,10 +113,8 @@ export default function RegisterUser() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (!validateForm()) {
-        showAlert("Por favor llene los campos obligatorios", "error");
-        return;
-      }
+      if (!validateForm()) return;
+
       setLoading(true);
 
       const urlFiles = await handleUploadFiles();

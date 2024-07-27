@@ -53,6 +53,8 @@ export default function UserForm({ label, setAlert, onChange }) {
 
         <InputField
           label={"Correo electrónico"}
+          type={"email"}
+          noLimit={true}
           placeholder={"Correo electrónico"}
           onChange={(value) => {
             onChange(value, "email");

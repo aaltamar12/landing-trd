@@ -11,11 +11,12 @@ export default function InputFieldIcon({ label, type, placeholder, onChange }) {
 
   const handleInput = (e) => {
     let validatedValue;
+    const inputValue = e.target.value;
 
     if (type === "tel") {
-      validatedValue = e.target.value.replace(/[^0-9\-]/g, "");
+      validatedValue = inputValue.replace(/[^0-9\-]/g, "").slice(0, 10);
     } else {
-      validatedValue = e.target.value;
+      validatedValue = inputValue;
     }
     setValue(validatedValue);
     onChange(validatedValue, "phone");

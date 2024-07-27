@@ -121,7 +121,7 @@ export default function UserDetails({ userData }) {
         </div>
 
         <div className="flex flex-col gap-8 px-6 md:px-20">
-          <div className="flex justify-between items-center text-left text-xl md:text-[27px]">
+          <div className="flex justify-between items-center text-left text-xl md:text-[27px] gap-8 md:gap-0">
             <h1>Hola {`${user.name} ${user.last_name}`}</h1>
 
             <div className="flex items-center gap-2">
