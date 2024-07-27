@@ -129,6 +129,7 @@ export default function RegisterUser() {
       }
 
       const { data, status } = await response.json();
+      console.log({ userData });
 
       const redirectUrl = status === 201 ? `/user/${data.id}` : "/404";
       router.push(redirectUrl);
