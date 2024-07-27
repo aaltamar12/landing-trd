@@ -11,6 +11,7 @@ import Alert from "./alert";
 export default function RegisterUser() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [isDataSent, setIsDataSent] = useState(false);
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [errorAlert, setErrorAlert] = useState(false);
@@ -129,8 +130,8 @@ export default function RegisterUser() {
       }
 
       const { data, status } = await response.json();
-      console.log({ userData });
 
+      setIsDataSent(true);
       const redirectUrl = status === 201 ? `/user/${data.id}` : "/404";
       router.push(redirectUrl);
     } catch (error) {
@@ -171,10 +172,11 @@ export default function RegisterUser() {
   }, [alertVisible]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, [loading, userData]);
+    !isDataSent &&
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+  }, [loading, isDataSent, userData]);
 
   if (loading) {
     return <Loading />;
